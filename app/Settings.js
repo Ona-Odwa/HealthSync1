@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, Switch, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import BottomNavBar from './BottomNavBar'; // import BottomNavBar
+import { router } from 'expo-router'; // use router instead of navigation
+import { useState } from 'react';
+import { StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
+import BottomNavBar from './BottomNavBar';
 
-export default function Settings({ navigation }) {
+export default function Settings() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => router.push('/Profile')}>
           <Ionicons name="arrow-back" size={24} color="#666" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Settings</Text>
@@ -29,11 +30,14 @@ export default function Settings({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => router.push('/LoginScreen')} // use router to go to login
+      >
         <Text style={styles.logoutText}>Log out</Text>
       </TouchableOpacity>
 
-      <BottomNavBar /> {/* Always at bottom due to absolute positioning */}
+      <BottomNavBar />
     </View>
   );
 }
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 20,
-    paddingBottom: 70, // extra space for navbar
+    paddingBottom: 70,
   },
   header: {
     flexDirection: 'row',
